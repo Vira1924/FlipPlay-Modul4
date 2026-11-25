@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "f4b8e2c1-9a1d-4d62-a1a7-flipplay-mod4",
 		"name": "FlipPlay REST API - Modul 4",
-		"description": "Koleksi endpoint FlipPlay REST API (Laravel 12) sesuai Modul 4 Pemrograman Web.",
+		"description": "Koleksi endpoint FlipPlay REST API (Laravel 12) sesuai Modul 4 Pemrograman Web, lengkap dengan skenario Happy Path dan Failure Path.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"variable": [
@@ -13,134 +13,201 @@
 	],
 	"item": [
 		{
-			"name": "1. Media - Get All",
-			"request": {
-				"method": "GET",
-				"url": "{{base_url}}/media"
-			}
-		},
-		{
-			"name": "2. Media - Filter by Title",
-			"request": {
-				"method": "GET",
-				"url": "{{base_url}}/media?title=Jujutsu"
-			}
-		},
-		{
-			"name": "3. Media - Show Detail (with Users)",
-			"request": {
-				"method": "GET",
-				"url": "{{base_url}}/media/1"
-			}
-		},
-		{
-			"name": "4. Media - Create (Happy Path - 201)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{ "key": "Accept", "value": "application/json" },
-					{ "key": "Content-Type", "value": "application/json" }
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"title\": \"Attack on Titan\",\n    \"type\": \"Anime\",\n    \"genre\": \"Action, Dark Fantasy\",\n    \"description\": \"Pertarungan umat manusia melawan Titan.\",\n    \"episodes\": 89\n}"
+			"name": "Happy Path",
+			"item": [
+				{
+					"name": "1. GET Semua Media",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/media"
+					}
 				},
-				"url": "{{base_url}}/media"
-			}
-		},
-		{
-			"name": "5. Media - Create Empty Title (Failure Path - 422)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{ "key": "Accept", "value": "application/json" },
-					{ "key": "Content-Type", "value": "application/json" }
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"title\": \"\",\n    \"type\": \"Anime\"\n}"
+				{
+					"name": "2. GET Cari Media by Judul",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/media?title=Jujutsu"
+					}
 				},
-				"url": "{{base_url}}/media"
-			}
-		},
-		{
-			"name": "6. Media - Update Partial (PATCH - 200)",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{ "key": "Accept", "value": "application/json" },
-					{ "key": "Content-Type", "value": "application/json" }
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"episodes\": 25\n}"
+				{
+					"name": "3. GET Detail Media (beserta Users)",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/media/1"
+					}
 				},
-				"url": "{{base_url}}/media/1"
-			}
-		},
-		{
-			"name": "7. Media - Delete (200)",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{ "key": "Accept", "value": "application/json" }
-				],
-				"url": "{{base_url}}/media/4"
-			}
-		},
-		{
-			"name": "8. Users - Get All",
-			"request": {
-				"method": "GET",
-				"url": "{{base_url}}/users"
-			}
-		},
-		{
-			"name": "9. Collection - Get User Collection",
-			"request": {
-				"method": "GET",
-				"url": "{{base_url}}/users/1/collection"
-			}
-		},
-		{
-			"name": "10. Collection - Add Media (Happy Path - 201)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{ "key": "Accept", "value": "application/json" },
-					{ "key": "Content-Type", "value": "application/json" }
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"media_id\": 2\n}"
+				{
+					"name": "4. POST Tambah Media Baru (201)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Accept", "value": "application/json" },
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Attack on Titan\",\n    \"type\": \"Anime\",\n    \"genre\": \"Action, Dark Fantasy\",\n    \"description\": \"Pertarungan umat manusia melawan Titan.\",\n    \"episodes\": 89\n}"
+						},
+						"url": "{{base_url}}/media"
+					}
 				},
-				"url": "{{base_url}}/users/1/collection"
-			}
-		},
-		{
-			"name": "11. Collection - Add Duplicate Media (Failure Path - 409)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{ "key": "Accept", "value": "application/json" },
-					{ "key": "Content-Type", "value": "application/json" }
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"media_id\": 1\n}"
+				{
+					"name": "5. PATCH Ubah Media (200)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{ "key": "Accept", "value": "application/json" },
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"episodes\": 25\n}"
+						},
+						"url": "{{base_url}}/media/1"
+					}
 				},
-				"url": "{{base_url}}/users/1/collection"
-			}
+				{
+					"name": "6. GET Daftar Users",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/users"
+					}
+				},
+				{
+					"name": "7. GET Detail User & Koleksi",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/users/1"
+					}
+				},
+				{
+					"name": "8. GET Koleksi Media User",
+					"request": {
+						"method": "GET",
+						"url": "{{base_url}}/users/1/collection"
+					}
+				},
+				{
+					"name": "9. POST Tambah Media ke Koleksi User (attach)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Accept", "value": "application/json" },
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"media_id\": 2\n}"
+						},
+						"url": "{{base_url}}/users/1/collection"
+					}
+				},
+				{
+					"name": "10. DELETE Hapus Media dari Koleksi User (detach)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": "{{base_url}}/users/1/collection/2"
+					}
+				},
+				{
+					"name": "11. DELETE Hapus Media (200)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": "{{base_url}}/media/4"
+					}
+				}
+			]
 		},
 		{
-			"name": "12. Collection - Remove Media (200)",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{ "key": "Accept", "value": "application/json" }
-				],
-				"url": "{{base_url}}/users/1/collection/1"
-			}
+			"name": "Failure Path",
+			"item": [
+				{
+					"name": "1. POST Media Judul Kosong (422)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Accept", "value": "application/json" },
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"\",\n    \"type\": \"Anime\"\n}"
+						},
+						"url": "{{base_url}}/media"
+					}
+				},
+				{
+					"name": "2. POST Media Judul Duplikat (422)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Accept", "value": "application/json" },
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Jujutsu Kaisen\",\n    \"type\": \"Anime\"\n}"
+						},
+						"url": "{{base_url}}/media"
+					}
+				},
+				{
+					"name": "3. GET Media Tidak Ditemukan (404)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": "{{base_url}}/media/999"
+					}
+				},
+				{
+					"name": "4. POST Koleksi Duplikat (409 Conflict)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Accept", "value": "application/json" },
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"media_id\": 1\n}"
+						},
+						"url": "{{base_url}}/users/1/collection"
+					}
+				},
+				{
+					"name": "5. POST Koleksi Media Tidak Ada (422)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Accept", "value": "application/json" },
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"media_id\": 999\n}"
+						},
+						"url": "{{base_url}}/users/1/collection"
+					}
+				},
+				{
+					"name": "6. DELETE Media Tidak Ada di Koleksi (404)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": "{{base_url}}/users/1/collection/2"
+					}
+				}
+			]
 		}
 	]
 }
